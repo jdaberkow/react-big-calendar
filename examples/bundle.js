@@ -49,7 +49,7 @@
     (n.o = function(e, t) {
       return Object.prototype.hasOwnProperty.call(e, t)
     }),
-    (n.p = '/examples'),
+    (n.p = ''),
     n((n.s = 195))
 })([
   function(e, t) {
@@ -7202,7 +7202,6 @@ object-assign
                 )
               }, [])
             case 'array':
-            case 'Array':
               var i = this.renderType({ type: n.value })
               return a.default.createElement('span', null, 'Array<', i, '>')
             case 'enum':
@@ -7215,7 +7214,19 @@ object-assign
         }),
         (n.renderEnum = function(e) {
           var t = e.value || []
-          return a.default.createElement('code', null, t.join(' | '))
+          if (!Array.isArray(t)) return t
+          var n = []
+          return (
+            t.forEach(function(e, t) {
+              var o = e.value
+              t > 0 &&
+                n.push(
+                  a.default.createElement('span', { key: t + 'c' }, ' | ')
+                ),
+                n.push(a.default.createElement('code', { key: t }, o))
+            }),
+            a.default.createElement('span', null, n)
+          )
         }),
         (n.renderControllableNote = function(e, t) {
           var n = e.doclets && e.doclets.controllable,
@@ -16249,7 +16260,7 @@ object-assign
             t = e.view,
             n = e.toolbar,
             o = e.events,
-            i = (e.culture, e.style),
+            i = e.style,
             l = e.className,
             s = e.elementProps,
             A = e.date,
@@ -16259,11 +16270,11 @@ object-assign
             b = (e.components,
             e.formats,
             e.messages,
+            e.culture,
             (0, a.default)(e, [
               'view',
               'toolbar',
               'events',
-              'culture',
               'style',
               'className',
               'elementProps',
@@ -16274,6 +16285,7 @@ object-assign
               'components',
               'formats',
               'messages',
+              'culture',
             ]))
           A = A || f()
           var g = this.getView(),
